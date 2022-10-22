@@ -2,7 +2,7 @@ Package: com.wangdaodao.firsttweak
 Name: firsttweak
 Version: 0.0.1
 Architecture: iphoneos-arm
-Description: An awesome MobileSubstrate tweak!
+Description: 王导导的第一个Tweak!
 Maintainer: wangdaodao
 Author: wangdaodao
 Section: Tweaks

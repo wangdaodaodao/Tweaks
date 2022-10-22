@@ -3,7 +3,7 @@ TARGET := iphone:clang:latest:7.0
 
 include $(THEOS)/makefiles/common.mk
 
-TWEAK_NAME = firattweak
+TWEAK_NAME = firsttweak
 
 firattweak_FILES = Tweak.x
 firattweak_CFLAGS = -fobjc-arc
