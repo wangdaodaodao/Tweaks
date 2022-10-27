@@ -1,9 +1,9 @@
-Package: com.wangdaodao.firsttweak
-Name: firsttweak
+Package: wangdaodao
+Name: wbnoads
 Version: 0.0.1
 Architecture: iphoneos-arm
-Description: 王导到的第一个越狱插件!
+Description: 微博去广告
 Maintainer: wangdaodao
-Author: wangdaodao
+Author: 王导导
 Section: Tweaks
 Depends: mobilesubstrate (>= 0.9.5000)
