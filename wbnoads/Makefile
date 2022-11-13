@@ -1,3 +1,5 @@
+
+THEOS_DEVICE_IP = 192.168.31.163
 TARGET := iphone:clang:latest:7.0
 
 

@@ -1,50 +1,38 @@
-/* How to Hook with Logos
-Hooks are written with syntax similar to that of an Objective-C @implementation.
-You don't need to #include <substrate.h>, it will be done automatically, as will
-the generation of a class list and an automatic constructor.
+#import "HookInterfaceStatment.h"
 
-%hook ClassName
 
-// Hooking a class method
-+ (id)sharedInstance {
-	return %orig;
+
+@interface MMUIViewController : UIViewController
+
+- (void)startLoadingBlocked;
+- (void)startLoadingNonBlock;
+- (void)startLoadingWithText:(NSString *)text;
+- (void)stopLoading;
+- (void)stopLoadingWithFailText:(NSString *)text;
+- (void)stopLoadingWithOKText:(NSString *)text;
+
+// Added method.
+- (void)helloWorld;
+
+@end
+
+
+%hook MMUIViewController
+
+- (void)viewWillAppear:(_Bool)arg1 {
+    %orig;
+    [self helloWorld];
 }
 
-// Hooking an instance method with an argument.
-- (void)messageName:(int)argument {
-	%log; // Write a message about this call, including its class, name and arguments, to the system log.
-
-	%orig; // Call through to the original function with its original arguments.
-	%orig(nil); // Call through to the original function with a custom argument.
-
-	// If you use %orig(), you MUST supply all arguments (except for self and _cmd, the automatically generated ones.)
+%new
+- (void)helloWorld {
+    UIAlertController *alertController = ({
+        UIAlertController *_alertController = [UIAlertController alertControllerWithTitle:@"Hello World!" message:nil preferredStyle:UIAlertControllerStyleAlert];
+        [_alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {}]];
+        [_alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {}]];
+        _alertController;
+    });
+    [self presentViewController:alertController animated:YES completion:NULL];
 }
 
-// Hooking an instance method with no arguments.
-- (id)noArguments {
-	%log;
-	id awesome = %orig;
-	[awesome doSomethingElse];
-
-	return awesome;
-}
-
-// Always make sure you clean up after yourself; Not doing so could have grave consequences!
-%end
-*/
-
-
-%hook MicroMessengerAppDelegate
--(_Bool)application:(id)arg1 didFinishLaunchingWithOptions:(id)arg2
-{
-    UIAlertView *alertView = [[UIAlertView alloc]init];
-    alertView.delegate = self;
-    alertView.title = @"hook成功";
-    [alertView addButtonWithTitle:@"取消"];
-    [[UIApplication sharedApplication].keyWindow addSubview:alertView];
-
-    [alertView show];
-
-    return %orig;
-}
 %end
