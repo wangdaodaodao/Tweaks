@@ -1,0 +1,6 @@
+scp -r /Users/wangdaodao/Library/Application Support/Reveal/RevealServer/RevealServer.xcframework/ios-arm64/RevealServer.framework root@192.168.31.163:/Library/Frameworks
+
+
+
+
+
